@@ -1,14 +1,13 @@
-package services;
+package entities;
 
 import dao.HistoryDAO;
-import entities.HttpRequest;
 
 import java.util.List;
 
-public class HistoryManager {
+public class History {
     private final HistoryDAO historyDAO;
 
-    public HistoryManager() {
+    public History() {
         this.historyDAO = new HistoryDAO();
     }
 

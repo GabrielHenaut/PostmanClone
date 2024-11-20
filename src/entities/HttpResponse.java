@@ -18,13 +18,16 @@ public class HttpResponse {
         for (int i = 0; i < response.getHeaders().length; i++) {
             this.headers.put(response.getHeaders()[i].getName(), response.getHeaders()[i].getValue());
         }
-//        response.getHeaders().forEach(header -> headers.put(header.getName(), header.getValue()));
 
         if (response.getEntity() != null) {
             this.body = new String(response.getEntity().getContent().readAllBytes(), StandardCharsets.UTF_8);
         } else {
             this.body = "";
         }
+    }
+
+    public String getContentType() {
+        return headers.get("Content-Type");
     }
 
     public int getStatusCode() {
@@ -39,14 +42,4 @@ public class HttpResponse {
         return body;
     }
 
-    public String formatAsJson() {
-        if (body.trim().startsWith("{")) {
-            return body; // Retorna sin cambios si ya es JSON
-        }
-        return "{\"response\": \"" + body.replace("\"", "\\\"") + "\"}";
-    }
-
-    public String formatAsXml() {
-        return "<response>" + body.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;") + "</response>";
-    }
 }

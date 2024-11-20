@@ -14,6 +14,7 @@ public class HttpRequest {
     private Map<String, String> headers;
     private Map<String, String> queryParams;
     private String body;
+    private String name;
 
     public HttpRequest(String url, String method) {
         this.url = url;
@@ -28,6 +29,27 @@ public class HttpRequest {
         this.method = method.toUpperCase();
         this.headers = new HashMap<>();
         this.queryParams = new HashMap<>();
+    }
+
+    public HttpRequest(String url, String method, String[][]  headers, String[][] queryParams, String body) {
+        this.url = url;
+        this.method = method.toUpperCase();
+        this.headers = new HashMap<>();
+        this.queryParams = new HashMap<>();
+
+        for (String[] param : queryParams) {
+            if (!param[0].isBlank() && !param[1].isBlank()) {
+                this.addQueryParam(param[0], param[1]);
+            }
+        }
+
+        for (String[] header : headers) {
+            if (!header[0].isBlank() && !header[1].isBlank()) {
+                this.addHeader(header[0], header[1]);
+            }
+        }
+
+        this.body = body;
     }
 
     public void addHeader(String key, String value) {
@@ -67,7 +89,6 @@ public class HttpRequest {
                 throw new IllegalArgumentException("Método HTTP no soportado: " + method);
         }
 
-        // Añadir headers
         headers.forEach(request::addHeader);
         return request;
     }
@@ -78,7 +99,7 @@ public class HttpRequest {
         StringBuilder fullUrl = new StringBuilder(url);
         fullUrl.append("?");
         queryParams.forEach((key, value) -> fullUrl.append(key).append("=").append(value).append("&"));
-        fullUrl.deleteCharAt(fullUrl.length() - 1); // Eliminar el último '&'
+        fullUrl.deleteCharAt(fullUrl.length() - 1);
         return fullUrl.toString();
     }
 
@@ -104,5 +125,17 @@ public class HttpRequest {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

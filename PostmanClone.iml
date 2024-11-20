@@ -10,5 +10,6 @@
     <orderEntry type="library" name="httpclient5-5.4.1" level="project" />
     <orderEntry type="library" name="h2-2.2.224" level="project" />
     <orderEntry type="library" name="httpcore-4.4.16" level="project" />
+    <orderEntry type="library" name="json-20240303" level="project" />
   </component>
 </module>
